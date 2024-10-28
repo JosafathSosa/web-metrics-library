@@ -5,3 +5,4 @@
 export * from './lib/ngx-metrics-web.service';
 export * from './lib/ngx-metrics-web.component';
 export * from './lib/services/web-vitals.service';
+export * from './lib/services/custom-error-handler.service';
