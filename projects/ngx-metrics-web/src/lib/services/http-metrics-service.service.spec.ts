@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpMetricsServiceService } from './http-metrics-service.service';
+import { HttpMetricsService } from './http-metrics-service.service';
 
-describe('HttpMetricsServiceService', () => {
-  let service: HttpMetricsServiceService;
+describe('HttpMetricsService', () => {
+  let service: HttpMetricsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HttpMetricsServiceService);
+    service = TestBed.inject(HttpMetricsService);
   });
 
   it('should be created', () => {

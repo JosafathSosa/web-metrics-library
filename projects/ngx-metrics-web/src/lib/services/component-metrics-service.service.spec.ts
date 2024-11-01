@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ComponentMetricsServiceService } from './component-metrics-service.service';
+import { ComponentMetricsService } from './component-metrics-service.service';
 
-describe('ComponentMetricsServiceService', () => {
-  let service: ComponentMetricsServiceService;
+describe('ComponentMetricsService', () => {
+  let service: ComponentMetricsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ComponentMetricsServiceService);
+    service = TestBed.inject(ComponentMetricsService);
   });
 
   it('should be created', () => {
