@@ -20,7 +20,12 @@ export class ComponentMetricsService {
     this.meter = this.metricsService.getMeter();
   }
 
-  // Configurar y registrar contador de visitas
+   /**
+   * Configura un contador de visitas para la página o componente actual.
+   * Este contador registra la cantidad de veces que la página o componente ha sido visitado.
+   * @param name - Nombre del contador (predeterminado: 'page_visit_counter')
+   * @param description - Descripción del contador
+   */
   configureVisitCounter(
     name: string = 'page_visit_counter',
     description: string = 'Number of page visits'
@@ -28,6 +33,10 @@ export class ComponentMetricsService {
     this.visitCounter = this.meter.createCounter(name, { description });
   }
 
+   /**
+   * Incrementa el contador de visitas en uno para un componente específico.
+   * @param componentName - Nombre del componente que se está visitando
+   */
   trackVisit(componentName: string) {
     if (this.visitCounter) {
       this.visitCounter.add(1, { page: componentName });
@@ -36,12 +45,18 @@ export class ComponentMetricsService {
     }
   }
 
-  // Inicia el seguimiento del tiempo de sesión
+   /**
+   * Inicia el tiempo de la sesión del usuario, usando `performance.now()` para obtener la marca de tiempo inicial.
+   */
   startSession() {
     this.sessionStartTime = performance.now();
   }
 
-  // Finaliza la sesión y registra la duración
+  /**
+   * Finaliza la sesión y registra su duración en el histograma correspondiente.
+   * @param name - Nombre del histograma de duración de la sesión
+   * @param description - Descripción del histograma
+   */
   endSession(
     name: string = 'session_duration_histogram',
     description: string = 'Duration of user session'
@@ -60,7 +75,11 @@ export class ComponentMetricsService {
     this.renderStartTime = performance.now();
   }
 
-  // Finaliza el tiempo de renderizado y lo registra
+   /**
+   * Finaliza el tiempo de renderizado y registra el tiempo en el histograma de renderizado.
+   * @param name - Nombre del histograma de tiempo de renderizado
+   * @param description - Descripción del histograma
+   */
   endRender(
     name: string = 'render_time_histogram',
     description: string = 'Render time of component'
@@ -74,7 +93,12 @@ export class ComponentMetricsService {
     this.trackRenderTime(renderTime);
   }
 
-  // Configurar y registrar histograma de tiempo de renderizado
+   /**
+   * Configura un histograma para registrar el tiempo de renderizado de un componente.
+   * @param name - Nombre del histograma
+   * @param description - Descripción del histograma
+   * @param unit - Unidad de tiempo (e.g., 'ms' para milisegundos)
+   */
   configureRenderTimeHistogram(
     name: string,
     description: string,
@@ -86,6 +110,10 @@ export class ComponentMetricsService {
     });
   }
 
+    /**
+   * Registra el tiempo de renderizado en el histograma configurado.
+   * @param duration - Duración en ms del tiempo de renderizado
+   */
   trackRenderTime(duration: number) {
     if (this.renderTimeHistogram) {
       this.renderTimeHistogram.record(duration, {
@@ -96,7 +124,12 @@ export class ComponentMetricsService {
     }
   }
 
-  // Configurar y registrar histograma de duración de la sesión
+   /**
+   * Configura un histograma para registrar la duración de una sesión de usuario.
+   * @param name - Nombre del histograma
+   * @param description - Descripción del histograma
+   * @param unit - Unidad de tiempo (e.g., 's' para segundos)
+   */
   configureSessionDurationHistogram(
     name: string,
     description: string,
@@ -116,7 +149,10 @@ export class ComponentMetricsService {
     }
   }
 
-  // Configurar y registrar el histograma de uso de memoria
+   /**
+   * Registra la duración de una sesión en el histograma configurado.
+   * @param duration - Duración de la sesión en segundos
+   */
   configureMemoryUsage(
     name: string = 'memory_usage_histogram',
     description: string = 'Memory usage of component in MB'
@@ -127,6 +163,11 @@ export class ComponentMetricsService {
     });
   }
 
+    /**
+   * Configura un histograma para registrar el uso de memoria de un componente.
+   * @param name - Nombre del histograma (predeterminado: 'memory_usage_histogram')
+   * @param description - Descripción del histograma
+   */
   trackMemoryUsage() {
     if (this.memoryUsageHistogram) {
       const memoryUsage = this.getCurrentMemoryUsage();
@@ -138,7 +179,10 @@ export class ComponentMetricsService {
     }
   }
 
-  // Obtener el uso de memoria actual en MB
+  
+  /**
+   * Registra el uso de memoria actual en el histograma configurado.
+   */
   private getCurrentMemoryUsage(): number {
     if (performance && (performance as any).memory) {
       return (performance as any).memory.usedJSHeapSize / 1024 / 1024; // Convertir a MB
